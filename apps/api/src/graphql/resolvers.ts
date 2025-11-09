@@ -14,6 +14,13 @@ export const resolvers: Resolvers = {
         createdAt: user.createdAt.toISOString(),
       }));
     },
+    dashboardData: async () => {
+      return {
+        totalBalance: 245000,
+        monthlyIncome: 80000,
+        monthlyExpense: 45000,
+      };
+    },
   },
 
   Mutation: {

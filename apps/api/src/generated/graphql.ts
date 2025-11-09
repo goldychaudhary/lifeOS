@@ -17,6 +17,13 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type DashboardData = {
+  __typename?: 'DashboardData';
+  monthlyExpense: Scalars['Float']['output'];
+  monthlyIncome: Scalars['Float']['output'];
+  totalBalance: Scalars['Float']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
@@ -30,6 +37,7 @@ export type MutationCreateUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  dashboardData: DashboardData;
   hello: Scalars['String']['output'];
   users: Array<User>;
 };
@@ -116,6 +124,8 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  DashboardData: ResolverTypeWrapper<DashboardData>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
@@ -126,6 +136,8 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  DashboardData: DashboardData;
+  Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Mutation: Record<PropertyKey, never>;
   Query: Record<PropertyKey, never>;
@@ -133,11 +145,18 @@ export type ResolversParentTypes = {
   User: User;
 };
 
+export type DashboardDataResolvers<ContextType = PrismaContext, ParentType extends ResolversParentTypes['DashboardData'] = ResolversParentTypes['DashboardData']> = {
+  monthlyExpense?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  monthlyIncome?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  totalBalance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = PrismaContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'name'>>;
 };
 
 export type QueryResolvers<ContextType = PrismaContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  dashboardData?: Resolver<ResolversTypes['DashboardData'], ParentType, ContextType>;
   hello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
@@ -150,6 +169,7 @@ export type UserResolvers<ContextType = PrismaContext, ParentType extends Resolv
 };
 
 export type Resolvers<ContextType = PrismaContext> = {
+  DashboardData?: DashboardDataResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

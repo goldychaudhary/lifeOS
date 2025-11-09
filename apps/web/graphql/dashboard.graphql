@@ -1,0 +1,7 @@
+query DashboardData {
+  dashboardData {
+    totalBalance
+    monthlyIncome
+    monthlyExpense
+  }
+}
