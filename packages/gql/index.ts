@@ -17,6 +17,13 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type DashboardData = {
+  __typename?: 'DashboardData';
+  monthlyExpense: Scalars['Float']['output'];
+  monthlyIncome: Scalars['Float']['output'];
+  totalBalance: Scalars['Float']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
@@ -30,6 +37,7 @@ export type MutationCreateUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  dashboardData: DashboardData;
   hello: Scalars['String']['output'];
   users: Array<User>;
 };
@@ -42,12 +50,58 @@ export type User = {
   name: Scalars['String']['output'];
 };
 
+export type DashboardDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardDataQuery = { __typename?: 'Query', dashboardData: { __typename?: 'DashboardData', totalBalance: number, monthlyIncome: number, monthlyExpense: number } };
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
 
+export const DashboardDataDocument = gql`
+    query DashboardData {
+  dashboardData {
+    totalBalance
+    monthlyIncome
+    monthlyExpense
+  }
+}
+    `;
+
+/**
+ * __useDashboardDataQuery__
+ *
+ * To run a query within a React component, call `useDashboardDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDashboardDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDashboardDataQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDashboardDataQuery(baseOptions?: Apollo.QueryHookOptions<DashboardDataQuery, DashboardDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DashboardDataQuery, DashboardDataQueryVariables>(DashboardDataDocument, options);
+      }
+export function useDashboardDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DashboardDataQuery, DashboardDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DashboardDataQuery, DashboardDataQueryVariables>(DashboardDataDocument, options);
+        }
+export function useDashboardDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<DashboardDataQuery, DashboardDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<DashboardDataQuery, DashboardDataQueryVariables>(DashboardDataDocument, options);
+        }
+export type DashboardDataQueryHookResult = ReturnType<typeof useDashboardDataQuery>;
+export type DashboardDataLazyQueryHookResult = ReturnType<typeof useDashboardDataLazyQuery>;
+export type DashboardDataSuspenseQueryHookResult = ReturnType<typeof useDashboardDataSuspenseQuery>;
+export type DashboardDataQueryResult = Apollo.QueryResult<DashboardDataQuery, DashboardDataQueryVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello
