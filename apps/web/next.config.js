@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import nextConfig from "next";
 
-export default nextConfig;
+const config = {
+  transpilePackages: ["gql", "@apollo/client"],
+  reactStrictMode: true,
+};
+
+export default config;
